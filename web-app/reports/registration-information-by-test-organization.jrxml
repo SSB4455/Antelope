@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="按考试和省厅导出考生信息" pageWidth="1190" pageHeight="842" orientation="Landscape" columnWidth="1130" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c63cc310-9e32-4e5a-a9f0-bc5c30a54980">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="test.id" class="java.lang.String"/>
+	<parameter name="organization.id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	rf.applicant_name,
+	rf.valid_identification_number,
+	rf.gender,
+	rf.date_of_birth,
+	rf.affiliation,
+	rf.department,
+	rf.position,
+	rf.rank,
+	rf.major,
+	rf.mobile,
+	CASE rf.is_resit WHEN true THEN '是' ELSE '否' END AS is_resit,
+	rf.remarks,
+	test.name testName,
+	org.name organizationName
+FROM
+	registration_form rf
+JOIN test ON rf.test_id=test.id
+JOIN organization org ON rf.organization_id=org.id
+WHERE
+	test_id=$P{test.id} AND
+	organization_id=$P{organization.id}]]>
+	</queryString>
+	<field name="applicant_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valid_identification_number" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date_of_birth" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="affiliation" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="department" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="position" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rank" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="major" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mobile" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="is_resit" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="remarks" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="testName" class="java.lang.String"/>
+	<field name="organizationName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="1130" height="50" uuid="df44042d-989e-46b0-b250-2a217db7504b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{testName}+$F{organizationName}+"考生信息"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-3" x="0" y="0" width="63" height="30" uuid="2e6df04f-31e3-4e7e-a4b7-90d5935d76a4"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["姓名"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-4" x="230" y="0" width="100" height="30" uuid="ff48123b-464c-403d-9fe0-26a83b62c20b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["出生日期"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-5" x="482" y="0" width="128" height="30" uuid="187195fa-615c-4103-a65f-110bc6163f3d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["部门"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-8" x="752" y="0" width="107" height="30" uuid="859860f4-0788-4d20-bde0-fea3d7df052b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["专业"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-9" x="859" y="0" width="90" height="30" uuid="3ec7c9f8-2686-42d1-a0cd-f26a50cabc7f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["手机"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-10" x="610" y="0" width="74" height="30" uuid="759355d7-b733-4265-a13b-fb32f1e665c7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["职位"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-11" x="684" y="0" width="68" height="30" uuid="80e94bae-cadd-407b-b5c3-4732f3873904"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["级别"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-12" x="1016" y="0" width="61" height="30" uuid="5ee8cae7-872d-49ee-a81b-295005bd5633"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["备注"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-6" x="191" y="0" width="39" height="30" uuid="18f8e06e-84a0-468f-94c2-432f9819ba97"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["性别"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-2" x="330" y="0" width="152" height="30" uuid="681ecf6b-5221-4c54-ac71-d547586266fc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["单位"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-7" x="949" y="0" width="67" height="30" uuid="03a0f2fa-dbfd-4269-ae71-3a478459fac7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["是否补考"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
+				<reportElement key="textField-13" x="63" y="0" width="128" height="30" uuid="0026a5b2-1654-4d50-afce-2201a62b6e39"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["身份证号"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-3" x="0" y="0" width="63" height="20" uuid="0eb77c85-c7b7-42de-94a4-1889f2d369c2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_name}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="yyyy/MM/dd" isBlankWhenNull="true">
+				<reportElement key="textField-4" x="230" y="0" width="100" height="20" uuid="e897dd10-18e1-4d95-8f2b-5cbd5463f7a0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_of_birth}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-5" x="482" y="0" width="128" height="20" uuid="e4fb3e50-b2df-4df0-b0a5-9d4e79ecf851"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-7" x="949" y="0" width="67" height="20" uuid="a6262742-837e-4485-bc33-b090784bc08f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{is_resit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-8" x="752" y="0" width="107" height="20" uuid="3dcd4216-7857-44e5-a145-04020e78ba39"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{major}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-12" x="1016" y="0" width="61" height="20" uuid="5e7e9d62-a30d-4c24-a076-d83d730ad708"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{remarks}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-6" x="191" y="0" width="39" height="20" uuid="0661c9e5-f797-4179-8857-06152a9570c0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" x="330" y="0" width="152" height="20" uuid="b5887494-907a-4781-a6f3-e89a612a5b2c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" pdfEncoding="Cp1256" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{affiliation}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-9" x="859" y="0" width="90" height="20" uuid="6400e41e-a6f2-4f3a-9eec-f625b818031f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-10" x="610" y="0" width="74" height="20" uuid="617da685-2246-4e55-9661-76778bf6ac0b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{position}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-11" x="684" y="0" width="68" height="20" uuid="c6284a98-fdb7-4306-a3be-dfa5b5159ec6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rank}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-13" x="63" y="0" width="128" height="20" uuid="63c7d11b-e9f4-4102-a5bf-2094188c74a7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valid_identification_number}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="960" y="0" width="77" height="20" forecolor="#000000" uuid="ec2498c1-99fe-4760-a346-a4a9627a4d24"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="1037" y="0" width="40" height="20" forecolor="#000000" uuid="c5bbce3d-1ec1-491b-ab51-6b25ee672bff"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

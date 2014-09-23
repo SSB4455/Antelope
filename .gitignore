@@ -1,0 +1,6 @@
+
+target/
+grails-app/conf/DataSource.groovy
+
+*.rar
+*.exe
