@@ -9,6 +9,9 @@
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="organization.id" class="java.lang.String"/>
+	<parameter name="program.id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
 	rf.applicant_name,
@@ -27,8 +30,10 @@
 FROM
 	registration_form rf
 JOIN organization org ON rf.organization_id=org.id
+JOIN test ON rf.test_id=test.id
 WHERE
-	organization_id=$P{organization.id}]]>
+	organization_id=$P{organization.id} AND
+	test.program_id=$P{program.id}]]>
 	</queryString>
 	<field name="applicant_name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

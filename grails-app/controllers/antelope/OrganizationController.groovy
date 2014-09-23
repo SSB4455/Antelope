@@ -101,6 +101,16 @@ class OrganizationController {
         }
     }
 	
+    def fastRegistrationReport() {
+		
+		def programList = Program.list()
+		def testList = Test.list()
+		def subjectList = Subject.list()
+		def organizationList = Organization.list()
+		
+        [programList: programList, testList: testList, subjectList: subjectList, organizationList: organizationList]
+		//render params as Jasper
+    }
 	
     def registrationReport() {
 		
@@ -113,27 +123,36 @@ class OrganizationController {
 		//render params as Jasper
     }
 	
-	def registrationInformationByTest() {
-		println params['test.id']
-		redirect(action: "reportRegistrationInformation", params: params)
-	}
-	
 	def reportRegistrationInformation() {
-		def test_id = params['test.id']
-		def subject_id = params['subject.id']
-		def organization_id = params['organization.id']
+		def testInstance = Test.get(params['test_id'])
+		def organizationInstance = Organization.get(params['organization_id'])
+		def subjectInstance = Subject.get(params['subject_id'])
+		def programInstance = Program.get(params['program_id'])
 		
 		
 		def c = RegistrationForm.createCriteria()
-		def registrationFormInstanceList = c.list {
+		def registrationFormInstanceList = c.list(max: 10) {
 			and {
-				eq("test_id", test_id)
-				eq("branch", "London")
+				if (testInstance != null) {
+					eq("test", testInstance)
+				}
+				if (organizationInstance != null) {
+					eq("organization", organizationInstance)
+				}
+				if (subjectInstance != null) {
+					subjectRegistered {
+						eq("subject", subjectInstance)
+					}
+				}
+				if  (programInstance != null) {
+					test {
+						eq("program", programInstance)
+					}
+				}
 			}
-			maxResults(10)
-			order("holderLastName", "desc")
+			order("admissionTicketNumber", "asc")
 		}
-		[registrationFormInstanceList: registrationFormInstanceList, test_id: test_id]
+		[registrationFormInstanceList: registrationFormInstanceList, test_id: testInstance?.id, organization_id: organizationInstance?.id, subject_id: subjectInstance?.id, program_id: programInstance?.id]
 	}
 	
     def markReport() {

@@ -19,7 +19,7 @@
 			</ul>
 		</div>
 		<div id="list-organization" class="content scaffold-list" role="main">
-			<h1>报名信息导出</h1>
+			<h1>${antelope.Test.get(test_id)?.name?.encodeAsHTML()}${antelope.Organization.get(organization_id)?.name?.encodeAsHTML()}${antelope.Subject.get(subject_id)?.name?.encodeAsHTML()}报名信息导出</h1>
 			
 			<table>
 				<thead>
@@ -28,6 +28,8 @@
 						<th><g:message code="姓名" /></th>
 					
 						<th><g:message code="身份证号" /></th>
+						
+						<th><g:message code="性别" /></th>
 					
 						<th><g:message code="出生日期" /></th>
 					
@@ -59,24 +61,97 @@
 					
 						<td>${fieldValue(bean: registrationFormInstance, field: "gender")}</td>
 					
-						<td>${fieldValue(bean: registrationFormInstance, field: "dateOfBirth")}</td>
+						<td><g:formatDate format="yyyy-MM-dd" date="${registrationFormInstance?.dateOfBirth}"/></td>
 					
-						<td>${fieldValue(bean: registrationFormInstance, field: "telephone")}</td>
+						<td>${fieldValue(bean: registrationFormInstance, field: "affiliation")}</td>
+					
+						<td>${fieldValue(bean: registrationFormInstance, field: "department")}</td>
+						
+						<td>${fieldValue(bean: registrationFormInstance, field: "position")}</td>
+					
+						<td>${fieldValue(bean: registrationFormInstance, field: "rank")}</td>
+					
+						<td>${fieldValue(bean: registrationFormInstance, field: "major")}</td>
 					
 						<td>${fieldValue(bean: registrationFormInstance, field: "mobile")}</td>
 					
+						<td>
+						<g:if test="${registrationFormInstance?.isResit == true}">
+							是
+						</g:if>
+						<g:else>
+							否
+						</g:else>
+						</td>
+					
+						<td>${fieldValue(bean: registrationFormInstance, field: "remarks")}</td>
+					
 					</tr>
 				</g:each>
+					<tr>
+					
+						<td>...</td>
+					
+						<td>...</td>
+					
+						<td>...</td>
+					
+						<td>...</td>
+					
+						<td>...</td>
+					
+						<td>...</td>
+						
+						<td>...</td>
+					
+						<td>...</td>
+					
+						<td>...</td>
+					
+						<td>...</td>
+					
+						<td>...</td>
+					
+						<td>...</td>
+					
+					</tr>
 				</tbody>
 			</table>
 			
 			<div >
 				<fieldset class="buttons" >
-        			<g:jasperReport name="report"
-						jasper="registration-information-by-test"
-						format="XLSX,RTF,PDF,HTML" ><br/>
-						<g:hiddenField name="test.id" value="${test_id}"/>
-					</g:jasperReport>
+					<g:if test="${test_id != null && organization_id != null}">
+						<g:jasperReport name="report"
+							jasper="registration-information-by-test-organization"
+							format="XLSX,RTF,PDF,HTML" ><br/>
+							<g:hiddenField name="test.id" value="${test_id}"/>
+							<g:hiddenField name="organization.id" value="${organization_id}"/>
+						</g:jasperReport>
+					</g:if>
+					<g:elseif test="${subject_id != null}">
+						<g:jasperReport name="report"
+							jasper="registration-information-by-test-subject"
+							format="XLSX,RTF,PDF,HTML" ><br/>
+							<g:hiddenField name="test.id" value="${test_id}"/>
+							<g:hiddenField name="subject.id" value="${subject_id}"/>
+						</g:jasperReport>
+					</g:elseif>
+					<g:elseif test="${test_id != null}">
+						<g:jasperReport name="report"
+							jasper="registration-information-by-test"
+							format="XLSX,RTF,PDF,HTML" ><br/>
+							<g:hiddenField name="test.id" value="${test_id}"/>
+						</g:jasperReport>
+					</g:elseif>
+					<g:elseif test="${organization_id != null}">
+						<g:jasperReport name="report"
+							jasper="registration-information-by-organization"
+							format="XLSX,RTF,PDF,HTML" ><br/>
+							<g:hiddenField name="program.id" value="${program_id}"/>
+							<g:hiddenField name="organization.id" value="${organization_id}"/>
+						</g:jasperReport>
+					</g:elseif>
+        			
 				</fieldset>
             </div>
 		</div>

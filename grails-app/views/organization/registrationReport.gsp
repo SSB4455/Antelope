@@ -23,55 +23,40 @@
 			<ol class="property-list organization">
 				
 				</br>按考试导出考生信息
-				<g:form action="registrationInformationByTest" >
-					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
+				<g:form action="reportRegistrationInformation" >
+					考试: <g:select name="test_id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					<g:submitButton name="report" class="list" value="report" />
 				</g:form>
-				<g:jasperReport name="registrationInformationByTest"
-					jasper="registration-information-by-test"
-					format="XLSX,RTF,PDF,HTML" ><br/>
-					<!--考试类别：<g:select name="program.id" from="${programList}" optionKey="id" optionValue="name" />-->
-					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
-					
-				</g:jasperReport>
 				</br>
 				</br>
 				</br>
 				</br>
 				</br>按考试和科目导出考生信息
-				<g:jasperReport name="registrationInformationByTestAndSubject"
-					jasper="registration-information-by-test-subject"
-					format="XLSX,RTF,PDF,HTML" ><br/>
-					<!--考试类别：<g:select name="program.id" from="${programList}" optionKey="id" optionValue="name" /></br>-->
-					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
-					科目: <g:select name="subject.id" from="${subjectList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 科目-']"/>
-					
-				</g:jasperReport>
+				<g:form action="reportRegistrationInformation" >
+					考试: <g:select name="test_id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
+					科目: <g:select name="subject_id" from="${subjectList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 科目-']"/>
+					<g:submitButton name="report" class="list" value="report" />
+				</g:form>
 				</br>
 				</br>
 				</br>
 				</br>
 				</br>按考试和省厅导出考生报名信息
-				<g:jasperReport name="registrationInformationByTestAndOrganization"
-					jasper="registration-information-by-test-organization"
-					format="XLSX,RTF,PDF,HTML" ><br/>
-					<!--考试类别：<g:select name="program.id" from="${programList}" optionKey="id" optionValue="name" /></br>-->
-					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
-					省厅：<g:select name="organization.id" from="${organizationList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 省厅-']"/>
-					
-				</g:jasperReport>
+				<g:form action="reportRegistrationInformation" >
+					考试: <g:select name="test_id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
+					省厅：<g:select name="organization_id" from="${organizationList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 省厅-']"/>
+					<g:submitButton name="report" class="list" value="report" />
+				</g:form>
 				</br>
 				</br>
 				</br>
 				</br>
 				</br>按省厅导出考生报名信息
-				<g:jasperReport name="registrationInformationByOrganization"
-					jasper="all-organization"
-					format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX" ><br/>
-					考试类别：<g:select name="program.id" from="${programList}" optionKey="id" optionValue="name" />
-					省厅：<g:select name="organization.id" from="${organizationList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 省厅-']"/>
-					
-				</g:jasperReport>
+				<g:form action="reportRegistrationInformation" >
+					考试类别：<g:select name="program_id" from="${programList}" optionKey="id" optionValue="name" />
+					省厅：<g:select name="organization_id" from="${organizationList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 省厅-']"/>
+					<g:submitButton name="report" class="list" value="report" />
+				</g:form>
 				</br>
 				</br>
 				</br>
