@@ -28,7 +28,9 @@ FROM
 	registration_form rf
 JOIN test ON rf.test_id=test.id
 WHERE
-	test_id=$P{test.id}]]>
+	test_id=$P{test.id}
+ORDER BY
+	rf.admission_ticket_number]]>
 	</queryString>
 	<field name="applicant_name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

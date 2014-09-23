@@ -32,7 +32,9 @@ JOIN test ON rf.test_id=test.id
 JOIN organization org ON rf.organization_id=org.id
 WHERE
 	test_id=$P{test.id} AND
-	organization_id=$P{organization.id}]]>
+	organization_id=$P{organization.id}
+ORDER BY
+	rf.admission_ticket_number]]>
 	</queryString>
 	<field name="applicant_name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>

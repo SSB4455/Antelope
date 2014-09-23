@@ -33,7 +33,9 @@ JOIN subject_registered subRe ON rf.id=subRe.registration_form_id
 JOIN `subject` ON subRe.subject_id=`subject`.id
 WHERE
 	rf.test_id=$P{test.id} AND
-	subRe.subject_id=$P{subject.id}]]>
+	subRe.subject_id=$P{subject.id}
+ORDER BY
+	rf.admission_ticket_number]]>
 	</queryString>
 	<field name="applicant_name" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
