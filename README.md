@@ -1,6 +1,6 @@
 Antelope
 ========
-»ùÓÚGrails 2.2.1
+åŸºäºGrails 2.2.1
 
-´ÓÕâÀï¿ªÊ¼
+ä»è¿™é‡Œå¼€å§‹
 http://localhost:8090/Antelope/organization/registrationReport

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="某期班上与非培训班上通过统计" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c63cc310-9e32-4e5a-a9f0-bc5c30a54980">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="test.id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	SUM(CASE temp.is_from_classes WHEN 1 THEN temp.applicant END) AS class_applicant,
+	SUM(CASE temp.is_from_classes WHEN 1 THEN temp.pass END) AS class_pass,
+	SUM(CASE temp.is_from_classes WHEN 0 THEN temp.applicant END) AS not_class_applicant,
+	SUM(CASE temp.is_from_classes WHEN 0 THEN temp.pass END) AS not_class_pass,
+	temp.testName
+FROM
+	(SELECT DISTINCT
+			(CASE rf.is_from_classes WHEN 1 THEN 1 ELSE 0 END) AS is_from_classes,
+			COUNT(rf.applicant_name) AS applicant,
+			SUM(CASE cf.issue_date WHEN test.end_date THEN 1 ELSE 0 END) AS pass,
+			test.`name` testName
+		FROM
+			registration_form rf
+		LEFT JOIN `profile` ON rf.valid_identification_number = `profile`.valid_identification_number
+		LEFT JOIN certificate cf ON cf.profile_id = `profile`.id
+		JOIN test ON rf.test_id = test.id
+		JOIN program ON test.program_id = program.id
+		WHERE
+			rf.test_id = $P{test.id}
+		GROUP BY
+			rf.is_from_classes)
+	AS temp]]>
+	</queryString>
+	<field name="class_applicant" class="java.math.BigDecimal"/>
+	<field name="class_pass" class="java.math.BigDecimal"/>
+	<field name="not_class_applicant" class="java.math.BigDecimal"/>
+	<field name="not_class_pass" class="java.math.BigDecimal"/>
+	<field name="testName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="535" height="50" uuid="df44042d-989e-46b0-b250-2a217db7504b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="30" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{testName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="64" width="195" height="25" uuid="243766ed-0e43-4c6c-a44b-c170105fda4b"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["班上与非班上通过统计"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="650" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="1" y="72" width="250" height="200" uuid="c95ab5dc-ee57-4c19-b16d-b4b29270f055"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<pieSeries>
+						<keyExpression><![CDATA["培训班上"]]></keyExpression>
+						<valueExpression><![CDATA[$F{class_applicant}]]></valueExpression>
+						<labelExpression><![CDATA[$F{class_applicant}+""]]></labelExpression>
+					</pieSeries>
+					<pieSeries>
+						<keyExpression><![CDATA["非培训班上"]]></keyExpression>
+						<valueExpression><![CDATA[$F{not_class_applicant}]]></valueExpression>
+						<labelExpression><![CDATA[$F{not_class_applicant}+""]]></labelExpression>
+					</pieSeries>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+			<textField>
+				<reportElement x="93" y="47" width="74" height="25" uuid="ac716c8a-50f5-453b-bdcf-b523c5539d3c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["报名情况"]]></textFieldExpression>
+			</textField>
+			<barChart>
+				<chart>
+					<reportElement x="1" y="352" width="534" height="298" uuid="d86c4796-dd1d-432a-9fce-5080e85b298e"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["培训班上"]]></seriesExpression>
+						<categoryExpression><![CDATA["培训班上报名"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{class_applicant}]]></valueExpression>
+						<labelExpression><![CDATA[$F{class_applicant}+""]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["培训班上"]]></seriesExpression>
+						<categoryExpression><![CDATA["培训班上通过"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{class_pass}]]></valueExpression>
+						<labelExpression><![CDATA[$F{class_pass}+""]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["非培训班上"]]></seriesExpression>
+						<categoryExpression><![CDATA["非培训报名"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{not_class_applicant}]]></valueExpression>
+						<labelExpression><![CDATA[$F{not_class_applicant}+""]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["非培训班上"]]></seriesExpression>
+						<categoryExpression><![CDATA["非培训班上通过"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{not_class_pass}]]></valueExpression>
+						<labelExpression><![CDATA[$F{not_class_pass}+""]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true">
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
