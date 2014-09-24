@@ -5,7 +5,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'organization.label', default: 'Organization')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<title>成绩信息导出</title>
 	</head>
 	<body>
 		<a href="#list-organization" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -81,8 +81,8 @@
 				</br>
 				</br>导出某期类证书格式成绩
 				<g:jasperReport name="registrationNumberByTest"
-					jasper="registration-number-by-test"
-					format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX" ><br/>
+					jasper="about-certificate"
+					format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					
 				</g:jasperReport>

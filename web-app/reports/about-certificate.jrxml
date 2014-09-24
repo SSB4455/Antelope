@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="类证书格式成绩" pageWidth="421" pageHeight="297" orientation="Landscape" columnWidth="361" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c63cc310-9e32-4e5a-a9f0-bc5c30a54980">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="test.id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	rf.applicant_name,
+	cf.number,
+	cf.issue_date,
+	test.`name` testName,
+	program.`name` programName
+FROM
+	registration_form rf
+JOIN `profile` ON rf.valid_identification_number = `profile`.valid_identification_number
+JOIN certificate cf ON cf.profile_id = `profile`.id
+JOIN test ON rf.test_id = test.id
+JOIN program ON test.program_id = program.id
+WHERE
+	rf.test_id = $P{test.id} AND
+	cf.program_id = program.id
+ORDER BY
+	cf.number ASC]]>
+	</queryString>
+	<field name="applicant_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="number" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="issue_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="testName" class="java.lang.String"/>
+	<field name="programName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="237" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="41" width="361" height="30" uuid="df44042d-989e-46b0-b250-2a217db7504b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{testName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="361" height="30" uuid="4a3340fc-5f55-4640-ab41-60d54923430a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{programName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="237">
+			<textField>
+				<reportElement x="0" y="17" width="361" height="30" uuid="0c8bc6de-f033-4156-b82d-61ddc10a7c7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{programName}+"证书"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="72" width="361" height="97" uuid="1c7cc821-507a-4a85-a163-0e670693e82b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="16" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["\t"+$F{applicant_name}+" 同志，恭喜你在 "+$F{testName}+" 中获得 "+$F{programName}+" 证书，证书号 "+$F{number}+" 。"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="266" y="186" width="79" height="20" uuid="26bde961-85f0-4cb2-bc2f-469473803fc0"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["此致敬礼"]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="242" y="206" width="103" height="20" uuid="634e59d4-1987-4bd2-8741-c5cd657b8265"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{issue_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -43,7 +43,7 @@ FROM
 	JOIN subject_registered sr ON rf.id = sr.registration_form_id
 	JOIN `subject` ON sr.subject_id = `subject`.id
 	WHERE
-		test_id = $P{test.id} AND
+		rf.test_id = $P{test.id} AND
 		sr.subject_id = $P{subject.id})
 	AS temp
 GROUP BY
