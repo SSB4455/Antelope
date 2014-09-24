@@ -12,64 +12,45 @@
 	<parameter name="subject.id" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-	SUM(CASE WHEN sr.score >= 0 AND sr.score <10 THEN 1 ELSE 0 END)
-	AS '[0,10)',
-	SUM(CASE WHEN sr.score >= 10 AND sr.score <20 THEN 1 ELSE 0 END)
-	AS '[10,20)',
-	SUM(CASE WHEN sr.score >= 20 AND sr.score <30 THEN 1 ELSE 0 END)
-	AS '[20,30)',
-	SUM(CASE WHEN sr.score >= 30 AND sr.score <40 THEN 1 ELSE 0 END)
-	AS '[30,40)',
-	SUM(CASE WHEN sr.score >= 40 AND sr.score <50 THEN 1 ELSE 0 END)
-	AS '[40,50)',
-	SUM(CASE WHEN sr.score >= 50 AND sr.score <60 THEN 1 ELSE 0 END)
-	AS '[50,60)',
-	SUM(CASE WHEN sr.score >= 60 AND sr.score <70 THEN 1 ELSE 0 END)
-	AS '[60,70)',
-	SUM(CASE WHEN sr.score >= 70 AND sr.score <80 THEN 1 ELSE 0 END)
-	AS '[70,80)',
-	SUM(CASE WHEN sr.score >= 80 AND sr.score <90 THEN 1 ELSE 0 END)
-	AS '[80,90)',
-	SUM(CASE WHEN sr.score >= 90 AND sr.score <100 THEN 1 ELSE 0 END)
-	AS '[90,100)',
-	SUM(CASE WHEN sr.score >= 100 AND sr.score <110 THEN 1 ELSE 0 END)
-	AS '[100,110)',
-	SUM(CASE WHEN sr.score >= 110 AND sr.score <120 THEN 1 ELSE 0 END)
-	AS '[110,120)',
-	SUM(CASE WHEN sr.score >= 120 AND sr.score <130 THEN 1 ELSE 0 END)
-	AS '[120,130)',
-	SUM(CASE WHEN sr.score >= 130 AND sr.score <140 THEN 1 ELSE 0 END)
-	AS '[130,140)',
-	SUM(CASE WHEN sr.score >= 140 AND sr.score <=150 THEN 1 ELSE 0 END)
-	AS '[140,150]',
-	COUNT(sr.score),
-	test.`name` testName,
-	`subject`.`name` subjectName
+	temp.score_section,
+	COUNT(temp.score_section) AS count,
+	temp.testName,
+	temp.subjectName
 FROM
-	registration_form rf
-JOIN test ON rf.test_id = test.id
-JOIN subject_registered sr ON rf.id = sr.registration_form_id
-JOIN `subject` ON sr.subject_id = `subject`.id
-WHERE
-	test_id = $P{test.id} AND
-	sr.subject_id = $P{subject.id}]]>
+	(SELECT
+		CASE WHEN sr.score = 0 THEN 0 ELSE
+		CASE WHEN sr.score > 0 AND sr.score <= 10 THEN 10 ELSE
+		CASE WHEN sr.score > 10 AND sr.score <= 20 THEN 20 ELSE
+		CASE WHEN sr.score > 20 AND sr.score <= 30 THEN 30 ELSE
+		CASE WHEN sr.score > 30 AND sr.score <= 40 THEN 40 ELSE
+		CASE WHEN sr.score > 40 AND sr.score <= 50 THEN 50 ELSE
+		CASE WHEN sr.score > 50 AND sr.score <= 60 THEN 60 ELSE
+		CASE WHEN sr.score > 60 AND sr.score <= 70 THEN 70 ELSE
+		CASE WHEN sr.score > 70 AND sr.score <= 80 THEN 80 ELSE
+		CASE WHEN sr.score > 80 AND sr.score <= 90 THEN 90 ELSE
+		CASE WHEN sr.score > 90 AND sr.score <= 100 THEN 100 ELSE
+		CASE WHEN sr.score > 100 AND sr.score <= 110 THEN 110 ELSE
+		CASE WHEN sr.score > 110 AND sr.score <= 120 THEN 120 ELSE
+		CASE WHEN sr.score > 120 AND sr.score <= 130 THEN 130 ELSE
+		CASE WHEN sr.score > 130 AND sr.score <= 140 THEN 140 ELSE 150
+		END END END END END END END END END END END END END END END
+		AS 'score_section',
+		test.`name` testName,
+		`subject`.`name` subjectName
+	FROM
+		registration_form rf
+	JOIN test ON rf.test_id = test.id
+	JOIN subject_registered sr ON rf.id = sr.registration_form_id
+	JOIN `subject` ON sr.subject_id = `subject`.id
+	WHERE
+		test_id = $P{test.id} AND
+		sr.subject_id = $P{subject.id})
+	AS temp
+GROUP BY
+	temp.score_section]]>
 	</queryString>
-	<field name="[0,10)" class="java.math.BigDecimal"/>
-	<field name="[10,20)" class="java.math.BigDecimal"/>
-	<field name="[20,30)" class="java.math.BigDecimal"/>
-	<field name="[30,40)" class="java.math.BigDecimal"/>
-	<field name="[40,50)" class="java.math.BigDecimal"/>
-	<field name="[50,60)" class="java.math.BigDecimal"/>
-	<field name="[60,70)" class="java.math.BigDecimal"/>
-	<field name="[70,80)" class="java.math.BigDecimal"/>
-	<field name="[80,90)" class="java.math.BigDecimal"/>
-	<field name="[90,100)" class="java.math.BigDecimal"/>
-	<field name="[100,110)" class="java.math.BigDecimal"/>
-	<field name="[110,120)" class="java.math.BigDecimal"/>
-	<field name="[120,130)" class="java.math.BigDecimal"/>
-	<field name="[130,140)" class="java.math.BigDecimal"/>
-	<field name="[140,150]" class="java.math.BigDecimal"/>
-	<field name="COUNT(sr.score)" class="java.lang.Long"/>
+	<field name="score_section" class="java.lang.Integer"/>
+	<field name="count" class="java.lang.Long"/>
 	<field name="testName" class="java.lang.String"/>
 	<field name="subjectName" class="java.lang.String"/>
 	<background>
@@ -80,7 +61,7 @@ WHERE
 			<textField>
 				<reportElement x="0" y="0" width="535" height="50" uuid="df44042d-989e-46b0-b250-2a217db7504b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="20"/>
+					<font size="20" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{testName}+$F{subjectName}+"成绩分数段统计"]]></textFieldExpression>
 			</textField>
@@ -90,43 +71,44 @@ WHERE
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="30" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="20"/>
+		<band/>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="20" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="100" splitType="Stretch">
-			<lineChart>
+		<band height="300" splitType="Stretch">
+			<barChart>
 				<chart>
-					<reportElement x="164" y="0" width="200" height="100" uuid="176fde8f-866b-4e30-bc33-210dde930379"/>
+					<reportElement x="0" y="0" width="535" height="300" uuid="9aec88ec-c815-4c50-9f07-f5a5fa58b6d8"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
 				<categoryDataset>
 					<categorySeries>
-						<seriesExpression><![CDATA["Dummy Series"]]></seriesExpression>
-						<categoryExpression><![CDATA[fenshu]]></categoryExpression>
-						<valueExpression><![CDATA[$F{[0,10)}$F{[10,20)}$F{[20,30)}$F{[30,40)}$F{[40,50)}$F{[50,60)}$F{[60,70)}$F{[70,80)}$F{[80,90)}$F{[90,100)}$F{[100,110)}$F{[110,120)}$F{[120,130)}$F{[130,140)}$F{[140,150]}]]></valueExpression>
+						<seriesExpression><![CDATA[$F{subjectName}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{score_section}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{count}]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
-				<linePlot>
+				<barPlot>
 					<plot/>
+					<itemLabel/>
 					<categoryAxisFormat>
 						<axisFormat/>
 					</categoryAxisFormat>
 					<valueAxisFormat>
 						<axisFormat/>
 					</valueAxisFormat>
-				</linePlot>
-			</lineChart>
+				</barPlot>
+			</barChart>
 		</band>
 	</summary>
 </jasperReport>

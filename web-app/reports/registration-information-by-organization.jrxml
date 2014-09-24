@@ -82,7 +82,7 @@ ORDER BY
 			<textField>
 				<reportElement x="0" y="0" width="1130" height="50" uuid="df44042d-989e-46b0-b250-2a217db7504b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="30"/>
+					<font size="30" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{organizationName}+"考生信息"]]></textFieldExpression>
 			</textField>
@@ -96,84 +96,84 @@ ORDER BY
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-3" x="0" y="0" width="63" height="30" uuid="2e6df04f-31e3-4e7e-a4b7-90d5935d76a4"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["姓名"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-4" x="230" y="0" width="100" height="30" uuid="ff48123b-464c-403d-9fe0-26a83b62c20b"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["出生日期"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-5" x="482" y="0" width="128" height="30" uuid="187195fa-615c-4103-a65f-110bc6163f3d"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["部门"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-8" x="752" y="0" width="107" height="30" uuid="859860f4-0788-4d20-bde0-fea3d7df052b"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["专业"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-9" x="859" y="0" width="90" height="30" uuid="3ec7c9f8-2686-42d1-a0cd-f26a50cabc7f"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["手机"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-10" x="610" y="0" width="74" height="30" uuid="759355d7-b733-4265-a13b-fb32f1e665c7"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["职位"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-11" x="684" y="0" width="68" height="30" uuid="80e94bae-cadd-407b-b5c3-4732f3873904"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["级别"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-12" x="1016" y="0" width="61" height="30" uuid="5ee8cae7-872d-49ee-a81b-295005bd5633"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["备注"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-6" x="191" y="0" width="39" height="30" uuid="18f8e06e-84a0-468f-94c2-432f9819ba97"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["性别"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-2" x="330" y="0" width="152" height="30" uuid="681ecf6b-5221-4c54-ac71-d547586266fc"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["单位"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-7" x="949" y="0" width="67" height="30" uuid="03a0f2fa-dbfd-4269-ae71-3a478459fac7"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["是否补考"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="false">
 				<reportElement key="textField-13" x="63" y="0" width="128" height="30" uuid="0026a5b2-1654-4d50-afce-2201a62b6e39"/>
 				<textElement verticalAlignment="Middle">
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["身份证号"]]></textFieldExpression>
 			</textField>

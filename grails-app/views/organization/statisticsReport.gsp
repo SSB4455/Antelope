@@ -5,7 +5,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'organization.label', default: 'Organization')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<title>统计信息</title>
 	</head>
 	<body>
 		<a href="#list-organization" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -35,7 +35,7 @@
 				</br>某期某科成绩分数段统计
 				<g:jasperReport name="scoreSectionStatistic"
 					jasper="score-section-statistic"
-					format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX" ><br/>
+					format="XLSX,RTF,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					科目: <g:select name="subject.id" from="${subjectList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 科目-']"/>
 					
