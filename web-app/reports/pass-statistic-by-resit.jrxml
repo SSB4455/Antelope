@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="某期班上与非培训班上通过统计" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c63cc310-9e32-4e5a-a9f0-bc5c30a54980">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="某期正考与补考通过统计" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c63cc310-9e32-4e5a-a9f0-bc5c30a54980">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="240"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="test.id" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-	SUM(CASE temp.is_from_classes WHEN 1 THEN temp.applicant END) AS class_applicant,
-	SUM(CASE temp.is_from_classes WHEN 1 THEN temp.pass END) AS class_pass,
-	SUM(CASE temp.is_from_classes WHEN 0 THEN temp.applicant END) AS not_class_applicant,
-	SUM(CASE temp.is_from_classes WHEN 0 THEN temp.pass END) AS not_class_pass,
+	SUM(CASE temp.is_resit WHEN 1 THEN temp.applicant END) AS resit_applicant,
+	SUM(CASE temp.is_resit WHEN 1 THEN temp.pass END) AS resit_pass,
+	SUM(CASE temp.is_resit WHEN 0 THEN temp.applicant END) AS not_resit_applicant,
+	SUM(CASE temp.is_resit WHEN 0 THEN temp.pass END) AS not_resit_pass,
 	temp.testName
 FROM
 	(SELECT DISTINCT
-			(CASE rf.is_from_classes WHEN 1 THEN 1 ELSE 0 END) AS is_from_classes,
+			(CASE rf.is_resit WHEN 1 THEN 1 ELSE 0 END) AS is_resit,
 			COUNT(rf.applicant_name) AS applicant,
 			SUM(CASE cf.issue_date WHEN test.end_date THEN 1 ELSE 0 END) AS pass,
 			test.`name` testName
@@ -31,13 +31,13 @@ FROM
 		WHERE
 			rf.test_id = $P{test.id}
 		GROUP BY
-			rf.is_from_classes)
+			rf.is_resit)
 	AS temp]]>
 	</queryString>
-	<field name="class_applicant" class="java.math.BigDecimal"/>
-	<field name="class_pass" class="java.math.BigDecimal"/>
-	<field name="not_class_applicant" class="java.math.BigDecimal"/>
-	<field name="not_class_pass" class="java.math.BigDecimal"/>
+	<field name="resit_applicant" class="java.math.BigDecimal"/>
+	<field name="resit_pass" class="java.math.BigDecimal"/>
+	<field name="not_resit_applicant" class="java.math.BigDecimal"/>
+	<field name="not_resit_pass" class="java.math.BigDecimal"/>
 	<field name="testName" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -52,11 +52,11 @@ FROM
 				<textFieldExpression><![CDATA[$F{testName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="251" y="64" width="264" height="25" uuid="243766ed-0e43-4c6c-a44b-c170105fda4b"/>
+				<reportElement x="320" y="64" width="195" height="25" uuid="243766ed-0e43-4c6c-a44b-c170105fda4b"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["培训班上与非培训班上通过统计"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["正考与补考通过统计"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -86,14 +86,14 @@ FROM
 				</chart>
 				<pieDataset>
 					<pieSeries>
-						<keyExpression><![CDATA["培训班上"]]></keyExpression>
-						<valueExpression><![CDATA[$F{class_applicant}]]></valueExpression>
-						<labelExpression><![CDATA[$F{class_applicant}+""]]></labelExpression>
+						<keyExpression><![CDATA["正考"]]></keyExpression>
+						<valueExpression><![CDATA[$F{not_resit_applicant}]]></valueExpression>
+						<labelExpression><![CDATA[$F{not_resit_applicant}+""]]></labelExpression>
 					</pieSeries>
 					<pieSeries>
-						<keyExpression><![CDATA["非培训班上"]]></keyExpression>
-						<valueExpression><![CDATA[$F{not_class_applicant}]]></valueExpression>
-						<labelExpression><![CDATA[$F{not_class_applicant}+""]]></labelExpression>
+						<keyExpression><![CDATA["补考"]]></keyExpression>
+						<valueExpression><![CDATA[$F{resit_applicant}]]></valueExpression>
+						<labelExpression><![CDATA[$F{resit_applicant}+""]]></labelExpression>
 					</pieSeries>
 				</pieDataset>
 				<piePlot>
@@ -117,28 +117,28 @@ FROM
 				</chart>
 				<categoryDataset>
 					<categorySeries>
-						<seriesExpression><![CDATA["培训班上"]]></seriesExpression>
-						<categoryExpression><![CDATA["培训班上报名"]]></categoryExpression>
-						<valueExpression><![CDATA[$F{class_applicant}]]></valueExpression>
-						<labelExpression><![CDATA[$F{class_applicant}+""]]></labelExpression>
+						<seriesExpression><![CDATA["正考"]]></seriesExpression>
+						<categoryExpression><![CDATA["正考报名"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{not_resit_applicant}]]></valueExpression>
+						<labelExpression><![CDATA[$F{not_resit_applicant}+""]]></labelExpression>
 					</categorySeries>
 					<categorySeries>
-						<seriesExpression><![CDATA["培训班上"]]></seriesExpression>
-						<categoryExpression><![CDATA["培训班上通过"]]></categoryExpression>
-						<valueExpression><![CDATA[$F{class_pass}]]></valueExpression>
-						<labelExpression><![CDATA[$F{class_pass}+""]]></labelExpression>
+						<seriesExpression><![CDATA["正考"]]></seriesExpression>
+						<categoryExpression><![CDATA["正考通过"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{not_resit_pass}]]></valueExpression>
+						<labelExpression><![CDATA[$F{not_resit_pass}+""]]></labelExpression>
 					</categorySeries>
 					<categorySeries>
-						<seriesExpression><![CDATA["非培训班上"]]></seriesExpression>
-						<categoryExpression><![CDATA["非培训报名"]]></categoryExpression>
-						<valueExpression><![CDATA[$F{not_class_applicant}]]></valueExpression>
-						<labelExpression><![CDATA[$F{not_class_applicant}+""]]></labelExpression>
+						<seriesExpression><![CDATA["补考"]]></seriesExpression>
+						<categoryExpression><![CDATA["补考报名"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{resit_applicant}]]></valueExpression>
+						<labelExpression><![CDATA[$F{resit_applicant}+""]]></labelExpression>
 					</categorySeries>
 					<categorySeries>
-						<seriesExpression><![CDATA["非培训班上"]]></seriesExpression>
-						<categoryExpression><![CDATA["非培训班上通过"]]></categoryExpression>
-						<valueExpression><![CDATA[$F{not_class_pass}]]></valueExpression>
-						<labelExpression><![CDATA[$F{not_class_pass}+""]]></labelExpression>
+						<seriesExpression><![CDATA["补考"]]></seriesExpression>
+						<categoryExpression><![CDATA["补考通过"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{resit_pass}]]></valueExpression>
+						<labelExpression><![CDATA[$F{resit_pass}+""]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
 				<barPlot isShowLabels="true">

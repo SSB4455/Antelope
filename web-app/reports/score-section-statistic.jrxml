@@ -83,10 +83,10 @@ GROUP BY
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="300" splitType="Stretch">
+		<band height="344" splitType="Stretch">
 			<barChart>
 				<chart>
-					<reportElement x="0" y="0" width="535" height="300" uuid="9aec88ec-c815-4c50-9f07-f5a5fa58b6d8"/>
+					<reportElement x="0" y="44" width="535" height="300" uuid="9aec88ec-c815-4c50-9f07-f5a5fa58b6d8"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -96,9 +96,10 @@ GROUP BY
 						<seriesExpression><![CDATA[$F{subjectName}]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{score_section}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{count}]]></valueExpression>
+						<labelExpression><![CDATA[$F{count}+""]]></labelExpression>
 					</categorySeries>
 				</categoryDataset>
-				<barPlot>
+				<barPlot isShowLabels="true">
 					<plot/>
 					<itemLabel/>
 					<categoryAxisFormat>

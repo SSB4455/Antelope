@@ -80,7 +80,7 @@
 				</br>
 				</br>
 				</br>导出某期类证书格式成绩
-				<g:jasperReport name="registrationNumberByTest"
+				<g:jasperReport name="aboutCertificate"
 					jasper="about-certificate"
 					format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>

@@ -66,7 +66,7 @@
 				</br>
 				</br>
 				</br>
-				</br>某期班上与非培训班上通过统计
+				</br>某期培训班上与非培训班上通过统计
 				<g:jasperReport name="passStatisticByClass"
 					jasper="pass-statistic-by-class"
 					format="DOCX,XLSX,PDF,HTML" ><br/>
@@ -80,7 +80,7 @@
 				</br>某期正考与补考通过统计
 				<g:jasperReport name="passStatisticByResit"
 					jasper="pass-statistic-by-resit"
-					format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX" ><br/>
+					format="DOCX,XLSX,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					
 				</g:jasperReport>
