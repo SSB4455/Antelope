@@ -14,23 +14,24 @@
 	rf.admission_ticket_number,
 	rf.applicant_name,
 	org.name AS organizationName,
-	SUM(CASE `subject`.`name` WHEN 'VB数据库' THEN sr.score END)
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='VB数据库' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='VB数据库' AND sr.registration_form_id=rf.id) END
 	AS 'VB数据库',
-	SUM(CASE `subject`.`name` WHEN '会计电算化' THEN sr.score END)
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='会计电算化' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='会计电算化' AND sr.registration_form_id=rf.id) END
 	AS '会计电算化',
-	SUM(CASE `subject`.`name` WHEN '综合笔试' THEN sr.score END)
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='综合笔试' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='综合笔试' AND sr.registration_form_id=rf.id) END
 	AS '综合笔试',
 	rf.`remarks`,
 	test.`name` testName
 FROM
 	registration_form rf
-JOIN test ON rf.test_id = test.id
-JOIN subject_registered sr ON rf.id = sr.registration_form_id
-JOIN `subject` ON sr.subject_id = `subject`.id
 JOIN organization org ON rf.organization_id=org.id
+JOIN test ON rf.test_id = test.id
 WHERE
 	test_id = $P{test.id}
-GROUP BY
+ORDER BY
 	rf.admission_ticket_number ASC]]>
 	</queryString>
 	<field name="admission_ticket_number" class="java.lang.String">
@@ -40,9 +41,9 @@ GROUP BY
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="organizationName" class="java.lang.String"/>
-	<field name="VB数据库" class="java.lang.Double"/>
-	<field name="会计电算化" class="java.lang.Double"/>
-	<field name="综合笔试" class="java.lang.Double"/>
+	<field name="VB数据库" class="java.lang.String"/>
+	<field name="会计电算化" class="java.lang.String"/>
+	<field name="综合笔试" class="java.lang.String"/>
 	<field name="remarks" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>

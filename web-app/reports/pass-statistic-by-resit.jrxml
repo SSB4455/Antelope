@@ -4,7 +4,7 @@
 	<property name="ireport.encoding" value="UTF-8"/>
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
@@ -52,11 +52,11 @@ FROM
 				<textFieldExpression><![CDATA[$F{testName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="320" y="64" width="195" height="25" uuid="243766ed-0e43-4c6c-a44b-c170105fda4b"/>
+				<reportElement x="320" y="64" width="215" height="25" uuid="243766ed-0e43-4c6c-a44b-c170105fda4b"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["正考与补考通过统计"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["正考与补考通过情况统计"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

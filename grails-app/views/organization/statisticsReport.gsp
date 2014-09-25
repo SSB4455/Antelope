@@ -66,7 +66,7 @@
 				</br>
 				</br>
 				</br>
-				</br>某期培训班上与非培训班上通过统计
+				</br>某期培训班上与非培训班上通过情况统计
 				<g:jasperReport name="passStatisticByClass"
 					jasper="pass-statistic-by-class"
 					format="DOCX,XLSX,PDF,HTML" ><br/>
@@ -77,7 +77,7 @@
 				</br>
 				</br>
 				</br>
-				</br>某期正考与补考通过统计
+				</br>某期正考与补考通过情况统计
 				<g:jasperReport name="passStatisticByResit"
 					jasper="pass-statistic-by-resit"
 					format="DOCX,XLSX,PDF,HTML" ><br/>

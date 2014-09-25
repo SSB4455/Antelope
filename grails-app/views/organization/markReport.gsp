@@ -24,7 +24,7 @@
 				</br>按考试导出成绩信息
 				<g:jasperReport name="scoreInformationByTest"
 					jasper="score-information-by-test"
-					format="XLSX,RTF,PDF,HTML" ><br/>
+					format="DOCX,XLSX,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					
 				</g:jasperReport>
@@ -47,7 +47,7 @@
 				</br>按考试和省厅导出成绩信息
 				<g:jasperReport name="scoreInformationByTestAndOrganization"
 					jasper="score-information-by-test-organization"
-					format="XLSX,RTF,PDF,HTML" ><br/>
+					format="DOCX,XLSX,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					省厅：<g:select name="organization.id" from="${organizationList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 省厅-']"/>
 					

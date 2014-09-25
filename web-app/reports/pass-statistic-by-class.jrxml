@@ -52,11 +52,11 @@ FROM
 				<textFieldExpression><![CDATA[$F{testName}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="251" y="64" width="264" height="25" uuid="243766ed-0e43-4c6c-a44b-c170105fda4b"/>
+				<reportElement x="239" y="64" width="296" height="25" uuid="243766ed-0e43-4c6c-a44b-c170105fda4b"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["培训班上与非培训班上通过统计"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["培训班上与非培训班上通过情况统计"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

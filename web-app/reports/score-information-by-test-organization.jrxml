@@ -15,25 +15,27 @@
 	rf.admission_ticket_number,
 	rf.applicant_name,
 	org.name AS organizationName,
-	CASE `subject`.`name` WHEN 'VB数据库' THEN (CASE sr.score WHEN 0 THEN (CASE WHEN sr.remarks is not null THEN sr.remarks ELSE 0 END) ELSE sr.score END) ELSE '未报名' END
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='VB数据库' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='VB数据库' AND sr.registration_form_id=rf.id) END
 	AS 'VB数据库',
-	CASE `subject`.`name` WHEN '会计电算化' THEN (CASE sr.score WHEN 0 THEN (CASE WHEN sr.remarks is not null THEN sr.remarks ELSE 0 END) ELSE sr.score END) ELSE '未报名' END
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='会计电算化' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='会计电算化' AND sr.registration_form_id=rf.id) END
 	AS '会计电算化',
-	CASE `subject`.`name` WHEN '综合笔试' THEN (CASE sr.score WHEN 0 THEN (CASE WHEN sr.remarks is not null THEN sr.remarks ELSE 0 END) ELSE sr.score END) ELSE '未报名' END
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='综合笔试' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='综合笔试' AND sr.registration_form_id=rf.id) END
 	AS '综合笔试',
 	rf.`remarks`,
 	test.`name` testName
 FROM
 	registration_form rf
-JOIN test ON rf.test_id = test.id
-JOIN subject_registered sr ON rf.id = sr.registration_form_id
-JOIN `subject` ON sr.subject_id = `subject`.id
 JOIN organization org ON rf.organization_id=org.id
+JOIN test ON rf.test_id = test.id
 WHERE
 	test_id = $P{test.id} AND
 	organization_id=$P{organization.id}
-GROUP BY
-	rf.admission_ticket_number ASC]]>
+ORDER BY
+	rf.admission_ticket_number ASC
+]]>
 	</queryString>
 	<field name="admission_ticket_number" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
