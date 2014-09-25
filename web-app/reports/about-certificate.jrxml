@@ -47,14 +47,14 @@ ORDER BY
 			<textField>
 				<reportElement x="0" y="41" width="361" height="30" uuid="df44042d-989e-46b0-b250-2a217db7504b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
+					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{testName}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{testName}+"类证书"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="0" width="361" height="30" uuid="4a3340fc-5f55-4640-ab41-60d54923430a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="16" isBold="true"/>
+					<font size="20" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{programName}]]></textFieldExpression>
 			</textField>
@@ -80,7 +80,7 @@ ORDER BY
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="16" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["\t"+$F{applicant_name}+" 同志，恭喜你在 "+$F{testName}+" 中获得 "+$F{programName}+" 证书，证书号 "+$F{number}+" 。"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["    "+$F{applicant_name}+" 同志，恭喜你在 "+$F{testName}+" 中获得 "+$F{programName}+" 证书，证书号 "+$F{number}+" 。"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="266" y="186" width="79" height="20" uuid="26bde961-85f0-4cb2-bc2f-469473803fc0"/>

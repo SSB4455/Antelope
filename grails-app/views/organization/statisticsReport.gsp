@@ -35,7 +35,7 @@
 				</br>某期某科成绩分数段统计
 				<g:jasperReport name="scoreSectionStatistic"
 					jasper="score-section-statistic"
-					format="DOCX,XLSX,PDF,HTML" ><br/>
+					format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					科目: <g:select name="subject.id" from="${subjectList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 科目-']"/>
 					
@@ -69,7 +69,7 @@
 				</br>某期培训班上与非培训班上通过情况统计
 				<g:jasperReport name="passStatisticByClass"
 					jasper="pass-statistic-by-class"
-					format="DOCX,XLSX,PDF,HTML" ><br/>
+					format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					
 				</g:jasperReport>
@@ -80,7 +80,7 @@
 				</br>某期正考与补考通过情况统计
 				<g:jasperReport name="passStatisticByResit"
 					jasper="pass-statistic-by-resit"
-					format="DOCX,XLSX,PDF,HTML" ><br/>
+					format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 					考试: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 考试-']"/>
 					
 				</g:jasperReport>

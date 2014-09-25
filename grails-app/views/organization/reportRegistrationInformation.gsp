@@ -123,7 +123,7 @@
 					<g:if test="${test_id != null && organization_id != null}">
 						<g:jasperReport name="report"
 							jasper="registration-information-by-test-organization"
-							format="DOCX,XLSX,PDF,HTML" ><br/>
+							format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 							<g:hiddenField name="test.id" value="${test_id}"/>
 							<g:hiddenField name="organization.id" value="${organization_id}"/>
 						</g:jasperReport>
@@ -131,7 +131,7 @@
 					<g:elseif test="${subject_id != null}">
 						<g:jasperReport name="report"
 							jasper="registration-information-by-test-subject"
-							format="DOCX,XLSX,PDF,HTML" ><br/>
+							format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 							<g:hiddenField name="test.id" value="${test_id}"/>
 							<g:hiddenField name="subject.id" value="${subject_id}"/>
 						</g:jasperReport>
@@ -139,14 +139,14 @@
 					<g:elseif test="${test_id != null}">
 						<g:jasperReport name="report"
 							jasper="registration-information-by-test"
-							format="DOCX,XLSX,PDF,HTML" ><br/>
+							format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 							<g:hiddenField name="test.id" value="${test_id}"/>
 						</g:jasperReport>
 					</g:elseif>
 					<g:elseif test="${organization_id != null}">
 						<g:jasperReport name="report"
 							jasper="registration-information-by-organization"
-							format="DOCX,XLSX,PDF,HTML" ><br/>
+							format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
 							<g:hiddenField name="program.id" value="${program_id}"/>
 							<g:hiddenField name="organization.id" value="${organization_id}"/>
 						</g:jasperReport>

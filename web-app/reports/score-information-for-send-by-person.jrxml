@@ -72,49 +72,49 @@ ORDER BY
 	<detail>
 		<band height="237">
 			<textField>
-				<reportElement x="0" y="30" width="361" height="30" uuid="0c8bc6de-f033-4156-b82d-61ddc10a7c7b"/>
+				<reportElement x="0" y="30" width="362" height="30" uuid="0c8bc6de-f033-4156-b82d-61ddc10a7c7b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{testName}+"成绩单"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="72" width="361" height="23" uuid="1c7cc821-507a-4a85-a163-0e670693e82b"/>
+				<reportElement x="31" y="89" width="331" height="23" uuid="1c7cc821-507a-4a85-a163-0e670693e82b"/>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="16" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["\t"+$F{applicant_name}+" 同志"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{applicant_name}+" 同志"]]></textFieldExpression>
 			</textField>
 			<textField pattern="yyyy/MM/dd">
-				<reportElement x="164" y="203" width="164" height="20" uuid="634e59d4-1987-4bd2-8741-c5cd657b8265"/>
+				<reportElement x="166" y="217" width="164" height="20" uuid="634e59d4-1987-4bd2-8741-c5cd657b8265"/>
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font size="14" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{results_release_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="105" width="361" height="23" uuid="1218d2f8-4d09-4519-b0df-0e062e44c0e1"/>
+				<reportElement x="79" y="127" width="282" height="23" uuid="1218d2f8-4d09-4519-b0df-0e062e44c0e1"/>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="16" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["\t\tVB数据库："+$F{VB数据库}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["VB数据库："+$F{VB数据库}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="128" width="361" height="23" uuid="71ce9726-e60c-4f92-a395-87510bd45b9f"/>
+				<reportElement x="79" y="150" width="282" height="23" uuid="71ce9726-e60c-4f92-a395-87510bd45b9f"/>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="16" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["\t\t会计电算化："+$F{会计电算化}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["会计电算化："+$F{会计电算化}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="151" width="361" height="23" uuid="dc907d33-3c21-495e-974d-5c221b73cd96"/>
+				<reportElement x="79" y="173" width="282" height="23" uuid="dc907d33-3c21-495e-974d-5c221b73cd96"/>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font size="16" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["\t\t综合笔试："+$F{综合笔试}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["综合笔试："+$F{综合笔试}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="361" height="30" uuid="425022dd-a03e-4259-8b44-4bd4dd1a0607"/>
+				<reportElement x="0" y="0" width="362" height="30" uuid="425022dd-a03e-4259-8b44-4bd4dd1a0607"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="18" isBold="true"/>
 				</textElement>
