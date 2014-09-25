@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="类证书格式成绩" pageWidth="421" pageHeight="297" orientation="Landscape" columnWidth="361" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c63cc310-9e32-4e5a-a9f0-bc5c30a54980">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="test.id" class="java.lang.String"/>
+	<parameter name="vid" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	rf.admission_ticket_number,
+	rf.applicant_name,
+	org.name AS organizationName,
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='VB数据库' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='VB数据库' AND sr.registration_form_id=rf.id) END
+	AS 'VB数据库',
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='会计电算化' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='会计电算化' AND sr.registration_form_id=rf.id) END
+	AS '会计电算化',
+	CASE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='综合笔试' AND sr.registration_form_id=rf.id) is null
+	WHEN 1 THEN "已通过" ELSE (SELECT CASE score WHEN 0 THEN sr.remarks ELSE score END FROM subject_registered sr JOIN `subject` ON sr.subject_id = `subject`.id WHERE `subject`.`name`='综合笔试' AND sr.registration_form_id=rf.id) END
+	AS '综合笔试',
+	rf.`remarks`,
+	test.results_release_date,
+	test.`name` testName,
+	program.`name` programName
+FROM
+	registration_form rf
+JOIN organization org ON rf.organization_id=org.id
+JOIN test ON rf.test_id = test.id
+JOIN program ON test.program_id=program.id
+WHERE
+	test_id = $P{test.id} AND
+	rf.valid_identification_number = $P{vid}
+ORDER BY
+	rf.admission_ticket_number ASC]]>
+	</queryString>
+	<field name="admission_ticket_number" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="applicant_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="organizationName" class="java.lang.String"/>
+	<field name="VB数据库" class="java.lang.String"/>
+	<field name="会计电算化" class="java.lang.String"/>
+	<field name="综合笔试" class="java.lang.String"/>
+	<field name="remarks" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="results_release_date" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="testName" class="java.lang.String"/>
+	<field name="programName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="237">
+			<textField>
+				<reportElement x="0" y="30" width="361" height="30" uuid="0c8bc6de-f033-4156-b82d-61ddc10a7c7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{testName}+"成绩单"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="72" width="361" height="23" uuid="1c7cc821-507a-4a85-a163-0e670693e82b"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="16" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["\t"+$F{applicant_name}+" 同志"]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="164" y="203" width="164" height="20" uuid="634e59d4-1987-4bd2-8741-c5cd657b8265"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{results_release_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="105" width="361" height="23" uuid="1218d2f8-4d09-4519-b0df-0e062e44c0e1"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="16" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["\t\tVB数据库："+$F{VB数据库}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="128" width="361" height="23" uuid="71ce9726-e60c-4f92-a395-87510bd45b9f"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="16" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["\t\t会计电算化："+$F{会计电算化}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="151" width="361" height="23" uuid="dc907d33-3c21-495e-974d-5c221b73cd96"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="16" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["\t\t综合笔试："+$F{综合笔试}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="361" height="30" uuid="425022dd-a03e-4259-8b44-4bd4dd1a0607"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{programName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
