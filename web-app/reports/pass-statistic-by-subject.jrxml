@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="某期班上与非培训班上通过统计" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="c63cc310-9e32-4e5a-a9f0-bc5c30a54980">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="5"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="program.id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	`subject`.`name`,
+	COUNT(DISTINCT rf.valid_identification_number) AS applicant,
+	SUM(CASE (SELECT cf.number FROM certificate cf JOIN `profile` ON cf.profile_id = `profile`.id WHERE `profile`.valid_identification_number=rf.valid_identification_number) is null WHEN 1 THEN 0 ELSE 1 END)
+	AS pass,
+	program.`name` AS programName
+FROM
+	subject_registered sr
+JOIN `subject` ON sr.subject_id = `subject`.id
+JOIN registration_form rf ON sr.registration_form_id = rf.id
+JOIN test ON rf.test_id = test.id
+JOIN program ON test.program_id = program.id
+WHERE
+	test.program_id = $P{program.id}
+GROUP BY
+	`subject`.`name`
+ORDER BY
+	`subject`.ranking]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="applicant" class="java.lang.Long"/>
+	<field name="pass" class="java.math.BigDecimal"/>
+	<field name="programName" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="535" height="50" uuid="df44042d-989e-46b0-b250-2a217db7504b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{programName}+"按科目通过情况统计"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="650" splitType="Stretch">
+			<stackedBarChart>
+				<chart>
+					<reportElement x="0" y="48" width="535" height="373" uuid="300d5b3b-876f-4d8e-a995-eec694f48fa6"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["通过"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{name}+"("+$F{applicant}+")"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{pass}]]></valueExpression>
+						<labelExpression><![CDATA[$F{pass}+""]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA["未通过"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{name}+"("+$F{applicant}+")"]]></categoryExpression>
+						<valueExpression><![CDATA[($F{applicant}.doubleValue()-$F{pass}.doubleValue())]]></valueExpression>
+						<labelExpression><![CDATA[($F{applicant}.doubleValue()-$F{pass}.doubleValue())+""]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true">
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</stackedBarChart>
+		</band>
+	</summary>
+</jasperReport>

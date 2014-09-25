@@ -32,7 +32,7 @@
 				</br>
 				</br>
 				</br>
-				</br>按考试和科目导出成绩信息
+				<!--</br>按考试和科目导出成绩信息
 				<g:jasperReport name="scoreInformationByTestAndSubject"
 					jasper="score-information-by-test-subject"
 					format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX" ><br/>
@@ -43,7 +43,7 @@
 				</br>
 				</br>
 				</br>
-				</br>
+				</br>-->
 				</br>按考试和省厅导出成绩信息
 				<g:jasperReport name="scoreInformationByTestAndOrganization"
 					jasper="score-information-by-test-organization"

@@ -21,7 +21,7 @@
 			
 			<ol class="property-list organization">
 				
-				</br>按考试类别导出考生报名信息
+				<!--</br>按考试类别导出考生报名信息
 				<g:jasperReport name="registrationInformationByProgram"
 					jasper="registration-information-by-program"
 					format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX" ><br/>
@@ -31,7 +31,7 @@
 				</br>
 				</br>
 				</br>
-				</br>
+				</br>-->
 				</br>某期某科成绩分数段统计
 				<g:jasperReport name="scoreSectionStatistic"
 					jasper="score-section-statistic"
@@ -44,9 +44,9 @@
 				</br>
 				</br>
 				</br>
-				</br>按省厅导出考生报名信息
-				<g:jasperReport name="registrationInformationByOrganization"
-					jasper="registration-information-by-organization"
+				<!--</br>按省厅通过情况统计
+				<g:jasperReport name="passStatisticByOrganization"
+					jasper="pass-statistic-by-organization"
 					format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX" ><br/>
 					省厅：<g:select name="organization.id" from="${organizationList}" optionKey="id" optionValue="name" noSelection="['':'-Choose 省厅-']"/>
 					
@@ -54,12 +54,12 @@
 				</br>
 				</br>
 				</br>
-				</br>
-				</br>按考试期次导出考生信息
-				<g:jasperReport name="registrationInformationByTest"
-					jasper="registration-information-by-test"
-					format="PDF,HTML,XML,CSV,XLS,RTF,TEXT,ODT,ODS,DOCX,XLSX,PPTX" ><br/>
-					考试期次: <g:select name="test.id" from="${testList}" optionKey="id" optionValue="ranking" noSelection="['':'-Choose 考试期次-']"/>
+				</br>-->
+				</br>按科目通过情况统计
+				<g:jasperReport name="passStatisticBySubject"
+					jasper="pass-statistic-by-subject"
+					format="DOCX,XLSX,PPTX,PDF,HTML" ><br/>
+					考试类别：<g:select name="program.id" from="${programList}" optionKey="id" optionValue="name" />
 					
 				</g:jasperReport>
 				</br>
@@ -88,8 +88,6 @@
 				</br>
 				</br>
 				</br>
-				
-				
 				
 			</ol>
 			

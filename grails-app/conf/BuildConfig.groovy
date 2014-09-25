@@ -62,8 +62,7 @@ grails.project.dependency.resolution = {
 
         compile ':cache:1.0.1'
 		
-		compile ":jasper-response:1.0.1"
-		compile ":jasper:1.8.0"
+		compile ":jasper:1.10.0"
     }
 }
 
